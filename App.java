@@ -1,19 +1,15 @@
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class App {
     public static void main(String[] args) {
         App app = new App();
-        String imageTest = "img/img01.png";
+        String imageTest = "img/img02.png"; //converted img file name
 
         BufferedImage image = app.loadImage(imageTest);
         if (image != null) {
-            //app.printImageSize(image);
-            int[][][] rgbValues = app.getPixelRGB(image);
-            //app.printRGBMatrix(image);  
-            //app.printBrightnessMatrix(image);
             app.brightnessToASCII(image);
         }
     }
@@ -25,7 +21,6 @@ public class App {
             BufferedImage image = ImageIO.read(file);
 
             if (image != null) {
-                System.out.println("Image successfully loaded!");
                 return image;
             } else {
                 System.out.println("Failed to load the image.");
@@ -143,25 +138,25 @@ public class App {
     */
 
     public void brightnessToASCII(BufferedImage image){
-        String asciiScale = "^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+        String asciiScale = "^\",:;Il!i~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
         int scaleLength = asciiScale.length();
         int[][] brightnessIndex = getPixelBrightness(image);
         int width = image.getWidth();
         int height = image.getHeight();
 
-        for (int x = 0; x < width; x++){
-            for (int y = 0; y < height; y++){
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 int brightness = brightnessIndex[x][y];
-                  
-                // Map brightness to an ASCII character
-                
-                int charIndex = (brightness * (scaleLength - 1)) / 255; // Scale brightness to the range of the ASCII scale
-                                                                        // scaleLength - 1: Ensures the brightness maps to valid indices in the asciiScale string.
-                char asciiChar = asciiScale.charAt(charIndex);
-                System.out.print(asciiChar); // Print the ASCII character
-            }
 
-        System.out.println(); // Move to the next line after each row            
-        }        
+                int charIndex = (brightness * (scaleLength - 1)) / 255;
+                char asciiChar = asciiScale.charAt(charIndex);
+
+                System.out.print(asciiChar);
+                System.out.print(asciiChar);
+                System.out.print(asciiChar);
+            }
+            System.out.println(); // Move to the next line after each row
+        }
+            
     }
 }
