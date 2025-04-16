@@ -35,26 +35,18 @@ Before you can run this program, you must have Java installed on your system.
 
 4. **View the Output**:
     - The output of the ASCII conversion will be saved in a text file (e.g., `output-file-name.txt`).
-    - To view the output, it is recommended to use the Notepads app available in the Microsoft Store. You can download it from this link:
+    - To view the output, I recommend to use the Notepads app available in the Microsoft Store. You can download it from this link:
       [Notepads - Microsoft Store](https://apps.microsoft.com/detail/9NHL4NSC67WM?hl=pt-br&gl=BR&ocid=pdpshare).
 
 ## Examples
 
-You can use the images below as examples of input images for the ASCII conversion.
+You can use the images below as examples of output images from the ASCII conversion.
 
 1. **Example 1:**
     - ![exemple1.png](./img-exemples/exemple1.png)
-    - Run the program with the following command:
-      ```bash
-      java App > output-example1.txt
-      ```
 
 2. **Example 2:**
     - ![exemple2.PNG](./img-exemples/exemple2.PNG)
-    - Run the program with the following command:
-      ```bash
-      java App > output-example2.txt
-      ```
 
 ## How It Works
 
@@ -66,4 +58,4 @@ The ASCII characters are chosen based on the brightness values, where lighter pi
 
 ## Note
 
-For the best results, images should ideally be in a resolution of **640x480** pixels. This resolution provides a good balance between detail and performance, allowing for clear and recognizable ASCII art output. Larger or smaller images may require resizing for optimal output.
+For the best results, images should ideally be in a resolution of **640x480** pixels.
