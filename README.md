@@ -42,28 +42,26 @@ Before you can run this program, you must have Java installed on your system.
 
 You can use the images below as examples of input images for the ASCII conversion.
 
-1. **Example 1: **
-    - ![exemple1.png](https://your-image-hosting-url.com/exemple1.png)
+1. **Example 1:**
+    - ![exemple1.png](./img-exemples/exemple1.png)
     - Run the program with the following command:
       ```bash
       java App > output-example1.txt
       ```
-    - The ASCII art representation of `exemple1.png` will be saved in `output-example1.txt`.
 
-2. **Example 2: **
-    - ![exemple2.PNG](https://your-image-hosting-url.com/exemple2.PNG)
+2. **Example 2:**
+    - ![exemple2.PNG](./img-exemples/exemple2.PNG)
     - Run the program with the following command:
       ```bash
       java App > output-example2.txt
       ```
-    - The ASCII art representation of `exemple2.PNG` will be saved in `output-example2.txt`.
 
 ## How It Works
 
 - The program first loads an image file from a specified path.
 - It then extracts the RGB values of each pixel and calculates its brightness.
 - Using the brightness, it maps each pixel to a character from an ASCII scale, creating an ASCII art version of the image.
-  
+
 The ASCII characters are chosen based on the brightness values, where lighter pixels are mapped to more complex characters, and darker pixels are mapped to simpler ones.
 
 ## Note
