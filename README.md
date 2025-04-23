@@ -43,10 +43,10 @@ Before you can run this program, you must have Java installed on your system.
 You can use the images below as examples of output images from the ASCII conversion.
 
 1. **Example 1:**
-    - ![exemple1.png](./img-exemples/exemple1.png)
+    - ![example1.png](./img-examples/example1.png)
 
 2. **Example 2:**
-    - ![exemple2.PNG](./img-exemples/exemple2.PNG)
+    - ![example2.PNG](./img-examples/example2.PNG)
 
 ## How It Works
 
