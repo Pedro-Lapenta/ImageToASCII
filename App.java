@@ -1,16 +1,72 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 public class App {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         App app = new App();
-        String imageTest = "img/img02.png"; //converted img file name
+        String imageTest = "img/img05.png"; //IMAGE THAT WILL BE CONVERTED 
 
         BufferedImage image = app.loadImage(imageTest);
         if (image != null) {
-            app.brightnessToASCII(image);
+            String asciiArt = app.brightnessToASCII(image);
+
+            System.out.println("Type the output file name: ");
+            String fileName = scanner.nextLine();
+
+            String filePath = "output/" + fileName + ".png";
+            
+            app.saveASCIImage(asciiArt, filePath, image.getWidth(), image.getHeight());
+        }
+    }
+
+    public void saveASCIImage(String asciiArt, String filePath, int width, int height) {
+        Font font = new Font("Courier New", Font.PLAIN, 12);
+        
+        BufferedImage tempImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = tempImage.createGraphics();
+        g2d.setFont(font);
+        FontMetrics fm = g2d.getFontMetrics();
+        
+        int charWidth = fm.charWidth('W'); 
+        int charHeight = fm.getHeight();
+        g2d.dispose();
+        
+        int imageWidth = width * charWidth * 2; 
+        int imageHeight = height * charHeight;
+        
+        BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = image.createGraphics();
+        
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, imageWidth, imageHeight);
+        g.setColor(Color.WHITE);
+        g.setFont(font);
+        
+        String[] lines = asciiArt.split("\n");
+        int y = fm.getAscent(); 
+        
+        for (String line : lines) {
+            g.drawString(line, 0, y);
+            y += charHeight;
+        }
+        
+        g.dispose();
+        
+        try {
+            File output = new File(filePath);
+            output.getParentFile().mkdirs();
+            ImageIO.write(image, "png", output);
+            System.out.println("ASCII image saved in: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error while saving image: " + e.getMessage());
         }
     }
 
@@ -112,7 +168,7 @@ public class App {
                 int green = rgbValues[x][y][1];
                 int blue = rgbValues[x][y][2];
 
-                brightnessIndex[x][y] = (red + green + blue) / 3;
+                brightnessIndex[x][y] = (299 * red + 587 * green + 114 * blue) / 1000;
             }
         }
         
@@ -137,26 +193,24 @@ public class App {
     * Convert brightness numbers to ASCII characters
     */
 
-    public void brightnessToASCII(BufferedImage image){
+    public String brightnessToASCII(BufferedImage image) {
+        StringBuilder asciiArt = new StringBuilder();
         String asciiScale = "^\",:;Il!i~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
         int scaleLength = asciiScale.length();
         int[][] brightnessIndex = getPixelBrightness(image);
         int width = image.getWidth();
         int height = image.getHeight();
-
+    
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int brightness = brightnessIndex[x][y];
-
                 int charIndex = (brightness * (scaleLength - 1)) / 255;
                 char asciiChar = asciiScale.charAt(charIndex);
-
-                System.out.print(asciiChar);
-                System.out.print(asciiChar);
-                System.out.print(asciiChar);
+                asciiArt.append(asciiChar).append(asciiChar);
             }
-            System.out.println(); // Move to the next line after each row
+            asciiArt.append("\n");
         }
-            
+    
+        return asciiArt.toString();
     }
 }
